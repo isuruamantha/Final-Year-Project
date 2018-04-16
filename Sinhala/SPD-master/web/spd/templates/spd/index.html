@@ -1,0 +1,201 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Sinhala Plagiarism Detection</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "starter-template.css" %}" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/spd">SPD</a>
+
+    {#    <div class="collapse navbar-collapse" id="navbarsExampleDefault">#}
+    {#        <ul class="navbar-nav mr-auto">#}
+    {#            <li class="nav-item active">#}
+    {#                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>#}
+    {#            </li>#}
+    {#        </ul>#}
+    {#    </div>#}
+</nav>
+
+<div class="alert alert-info">
+    <h3 class="card-header text-center">
+        Sinhala Plagiarism Detection / සිංහල රචනා චෞරත්වය අනාවරණය
+    </h3>
+</div>
+
+<div class="container-fluid">
+    <div class="col-md-10 offset-md-1">
+
+        <div class="card">
+            <h4 class="card-header text-center">
+                Compare with the Sinhala Corpus / සිංහල සංග්‍රහය හා සැසඳීම
+            </h4>
+
+            <form action="/spd/compare" method="post" enctype="multipart/form-data">
+                <div class="card-block">
+
+                    <div class="alert alert-info">
+                        <p>Please upload files to compare similarity with the Sinhala corpus/ සිංහල සංග්‍රහය හා සැසඳීමට
+                            අවශ්‍ය ලිපිගොනු මෙහි අමුණන්න.</p>
+                    </div>
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            <p>
+                                {{ error }}
+                            </p>
+                        </div>
+                    {% endif %}
+
+                    {% if similarities %}
+                        <div class="alert alert-success">
+                            <ul>
+                                {% for sim in similarities %}
+                                    <li>{{ sim.name }} -> {{ sim.similarity }}%</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    {% if uniqueness %}
+                        <div class="alert alert-success">
+                            <p>Uniqueness is : <strong>{{ uniqueness }}%</strong></p>
+                        </div>
+                    {% endif %}
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Select Your Files to Compare</label>
+                                <input type="file" accept="text/plain" class="form-control" name="doc" required>
+                            </div>
+                            <div class="col-md-12">
+                                <p><strong>Use the Control or the Shift key to select multiple files.</strong></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button class="btn btn-primary pull-right" onclick="compareDocs()">Compare / සසඳන්න</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- /.container for file uploads -->
+
+<div class="container-fluid mt-5">
+    <div class="col-md-10 offset-md-1">
+        <div class="card">
+            <h4 class="card-header text-center">
+                Compare among Uploaded Documents / ලිපි ගොණු අතර සැසඳීම
+            </h4>
+
+            <form action="/spd/uploadMultipleDocs" method="post" enctype="multipart/form-data">
+
+                <div class="card-block">
+
+                    {% if results and docs %}
+                        <div class="alert alert-success" role="alert" id="successBox">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card border-success h-100">
+                                        <h4 class="card-header">Uniqueness %</h4>
+                                        <h4 class="card-header">අනන්‍යතාවය %</h4>
+                                        <div class="card-block">
+                                            <ul>
+                                                {% for result in results %}
+                                                    <li>
+                                                        {{ result.file }} - {{ result.uniqueness }}%
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card border-success h-100">
+                                        <h4 class="card-header">Similarity % (Suspicious Docs)</h4>
+                                        <h4 class="card-header">සමතාව % (සැක සහිත ලිපි)</h4>
+                                        <div class="card-block">
+                                            <ul>
+                                                {% for doc in docs %}
+                                                    <li>
+                                                        {{ doc.file }}
+                                                        <ul>
+                                                            {% for similarity in doc.similarities %}
+                                                                <li>{{ similarity.file }} - {{ similarity.similarity }}%
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">
+                            <p>Please upload files to compare similarity among uploaded documents/ ලිපි ගොණු එකිනෙක අතර
+                                සැසඳීමට අවශ්‍ය සිංහල ලිපිගොනු මෙහි
+                                අමුණන්න.</p>
+                        </div>
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Select Your Files to Compare</label>
+                                <input type="file" accept="text/plain" class="form-control" name="file" multiple
+                                       required>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <p><strong>Use the Control or the Shift key to select multiple files.</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button class="btn btn-primary pull-right" type="submit">Compare / සසඳන්න</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div><!-- /. end of container for file uploads-->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+<script src="{% static "bootstrap.min.js" %}"></script>
+{#<script src="{% static "app.js" %}"></script>#}
+</body>
+</html>
