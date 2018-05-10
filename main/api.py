@@ -2,11 +2,12 @@ from flask import Flask, request
 from flask_cors import CORS
 
 from Tokenize import wordTokenize, sentanceTokenize, removeStopWords, stemming
+from mindmap import mindmap
 from summarization import textRankAlgorithm
 
 app = Flask(__name__)
 CORS(app)
-
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route("/wordtokenize", methods=["POST"])
 def function1():
@@ -37,6 +38,15 @@ def function5():
     data = request.json['data']
     return textRankAlgorithm(data)
 
+@app.route("/mindmap", methods=["POST"])
+def function6():
+    data = request.json['data']
+    return mindmap()
+
+# @app.route("/mindmap", methods=["POST"])
+# def function7():
+#     data = request.json['data']
+#     return keywordcloud()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, threaded=True)
