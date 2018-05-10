@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_cors import CORS
 
+from KeywordExtraction import keyword_extraction
 from Tokenize import wordTokenize, sentanceTokenize, removeStopWords, stemming
 from mindmap import mindmap
 from summarization import textRankAlgorithm
@@ -41,12 +42,12 @@ def function5():
 @app.route("/mindmap", methods=["POST"])
 def function6():
     data = request.json['data']
-    return mindmap()
+    return mindmap(data)
 
-# @app.route("/mindmap", methods=["POST"])
-# def function7():
-#     data = request.json['data']
-#     return keywordcloud()
+@app.route("/keywordextraction", methods=["POST"])
+def function7():
+    data = request.json['data']
+    return keyword_extraction(data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, threaded=True)
