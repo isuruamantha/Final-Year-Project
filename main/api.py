@@ -3,7 +3,7 @@ from flask_cors import CORS
 
 from KeywordExtraction import keyword_extraction
 from Tokenize import wordTokenize, sentanceTokenize, removeStopWords, stemming
-from mindmap import mindmap
+from mindmap import mindmap_generate
 from summarization import textRankAlgorithm
 
 app = Flask(__name__)
@@ -42,7 +42,7 @@ def function5():
 @app.route("/mindmap", methods=["POST"])
 def function6():
     data = request.json['data']
-    return mindmap(data)
+    return mindmap_generate(data)
 
 @app.route("/keywordextraction", methods=["POST"])
 def function7():

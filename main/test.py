@@ -1,0 +1,57 @@
+import json
+import pprint
+
+# JSON test format for mind map
+
+# json_list = {}
+# json_list["class"] = "go.TreeModel"
+# text = ["a", "b", "c", "e"]
+# topList = []
+# tmpDict1 = {}
+# tmpDict1["key"] = 0
+# tmpDict1["text"] = "Main Node"
+# tmpDict1["loc"] = 0.0
+#
+# topList.append(tmpDict1)
+#
+# for index, tex in enumerate(text):
+#     tmpDict1 = {}
+#     tmpDict1["key"] = index + 1
+#     tmpDict1["parent"] = 0
+#     tmpDict1["text"] = tex
+#     tmpDict1["brush"] = "skyblue"
+#     tmpDict1["dir"] = "left"
+#     topList.append(tmpDict1)
+#
+# json_list["nodeDataArray"] = (topList)
+#
+# pprint.pprint(json_list)
+
+
+
+# JSON test format for keyword cloud
+
+json_list = {}
+
+text = ["a", "b", "c", "e"]
+topList = []
+
+for index, tex in enumerate(text):
+    tmpDict1 = {}
+    tmpDict1["key"] = index + 1
+    tmpDict1["value"] = 0
+    topList.append(tmpDict1)
+
+pprint.pprint(topList)
+
+
+def keywords_json_formatter():
+    topList = []
+
+    for index, tex in enumerate(text):
+        tmpDict1 = {}
+        tmpDict1["key"] = index + 1
+        tmpDict1["value"] = 0
+        topList.append(tmpDict1)
+
+    pprint.pprint(topList)

@@ -61,20 +61,21 @@ def split_chapter(full_text):
     return splited_words
 
 
-# Load stop
-print('------------------------ Load stop words ------------------------------')
-print()
-stopwords = open('StopWords_sin.txt', 'r', encoding='utf-16').read()
-get_stopwords(stopwords)
-
-print(stopwords_new)
-
 
 def textRankAlgorithm(document):
     summary = ''
     splited_sents = ''
 
     full_text = document
+
+    # Load stop
+    print('------------------------ Load stop words ------------------------------')
+    print()
+    stopwords = open('StopWords_sin.txt', 'r', encoding='utf-16').read()
+    get_stopwords(stopwords)
+
+    print(stopwords_new)
+
 
     print('------------------------ remove stop words ------------------------------')
     print()
