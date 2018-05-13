@@ -2,12 +2,13 @@ import pprint
 import random
 
 from flask import json, jsonify, app
-from nltk import sent_tokenize
+from nltk import sent_tokenize, re
 
+from KeywordExtraction import keyword_extraction
 from summarization import textRankAlgorithm, sentence_splitter
 
 # Create mind map according to the layout
-def generate_mindmap_json(sorted_text):
+def generate_mindmap_json(sorted_text, keyword_list):
     json_list = {}
 
     json_list["class"] = "go.TreeModel"
@@ -20,23 +21,53 @@ def generate_mindmap_json(sorted_text):
     topList = []
     tmpDict1 = {}
     tmpDict1["key"] = 0
-    tmpDict1["text"] = "Main Nodes"
+    tmpDict1["text"] = "Mind Map"
     tmpDict1["loc"] = 0.0
 
     topList.append(tmpDict1)
 
     for index, tex in enumerate(text):
-        tmpDict1 = {}
-        tmpDict1["key"] = index + 1
-        tmpDict1["parent"] = 0
-        tmpDict1["text"] = tex
-        tmpDict1["brush"] = random.choice(colors)
-        tmpDict1["dir"] = random.choice(directions)
-        topList.append(tmpDict1)
+
+        tmpDict2 = {}
+        random_selected_color = random.choice(colors)
+        random_selected_direction =random.choice(directions)
+        tmpDict2["key"] = index + 1
+        tmpDict2["parent"] = 0
+        tmpDict2["text"] = tex
+        tmpDict2["brush"] = random_selected_color
+        tmpDict2["dir"] = random_selected_direction
+        topList.append(tmpDict2)
+        for loop_idx, tokenized_word in enumerate(word_tokenize(tex)):
+            tmpDict3 = {}
+            # if set(keyword_list).intersection(tokenized_word):
+            if any(word in tokenized_word for word in keyword_list):
+                tmpDict3["key"] = loop_idx + 100 + 1
+                tmpDict3["parent"] = index + 1
+                tmpDict3["text"] = tokenized_word
+                tmpDict3["brush"] = random_selected_color
+                tmpDict3["dir"] = random_selected_direction
+                topList.append(tmpDict3)
 
     json_list["nodeDataArray"] = (topList)
 
     return jsonify(json_list)
+
+def filter_sorted_keywords(sorted_keywords):
+    filterd_keyword_list = []
+    for word in sorted_keywords:
+        filterd_keyword_list.append(word[0])
+
+    return filterd_keyword_list
+
+
+def word_tokenize(full_text):
+    splited_words = []
+    # splited_text = nltk.word_tokenize(full_text)
+    splited_text = re.split('\n\n| \n|\n|[ ]|,', full_text)
+    for word in splited_text:
+        if not word == '':
+            splited_words.append(word)
+    return splited_words
 
 
 # Main method
@@ -46,12 +77,13 @@ def mindmap_generate(sinhala_text):
 
     print(sents_list[:4])
 
-    print("Keywords list")
+    all_extracted_keywords = keyword_extraction(sinhala_text, False)
 
-    # all_extracted_keywords = keyword_extraction(sinhala_text)
-    # print(all_extracted_keywords)
+    print('------------------------ Extracted Keywords list ------------------------------')
+    print()
+    print(all_extracted_keywords)
 
-    return generate_mindmap_json(sents_list[:4])
+    return generate_mindmap_json(sents_list[:4], all_extracted_keywords[:30])
 
 
 '''

@@ -51,7 +51,7 @@ def function6():
 @app.route("/keywordextraction", methods=["POST"])
 def function7():
     data = request.json['data']
-    return keyword_extraction(data)
+    return keyword_extraction(data, True)
 
 
 @app.route("/login", methods=["POST"])

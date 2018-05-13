@@ -4,7 +4,7 @@ import operator
 from time import strftime
 
 import nltk
-from flask import jsonify
+from flask import jsonify, make_response
 
 debug = False
 test = True
@@ -147,6 +147,13 @@ def filter_sorted_keywords(sorted_keywords):
 
     return keywords_json_formatter(filterd_keyword_list)
 
+def filter_keywords(sorted_keywords):
+    filterd_keyword_list = []
+    for word in sorted_keywords:
+        filterd_keyword_list.append(word[0])
+
+    return filterd_keyword_list
+
 
 def keywords_json_formatter(unformatted_text):
     topList = []
@@ -160,7 +167,7 @@ def keywords_json_formatter(unformatted_text):
     return (topList)
 
 
-def keyword_extraction(sinhala_text):
+def keyword_extraction(sinhala_text, is_result_formatted):
     text = sinhala_text
     # text = "Sri Lanka's documented history spans 3,000 years, with evidence of pre-historic human settlements dating back to at least 125,000 years.[11] It has a rich cultural heritage and the first known Buddhist writings of Sri Lanka, the Pāli Canon, date back to the Fourth Buddhist council in 29 BC.[12][13] Its geographic location and deep harbours made it of great strategic importance from the time of the ancient Silk Road through to the modern Maritime Silk Road.[14][15][16] Sri Lanka was known from the beginning of British colonial rule as Ceylon (/sɪˈlɒn, seɪ-, siː-/). A nationalist political movement arose in the country in the early-20th century to obtain political independence, which was granted in 1948; the country became a republic and adopted its current name in 1972. Sri Lanka's recent history has been marred by a thirty-year civil war, which decisively ended when the Sri Lanka Armed Forces defeated the Liberation Tigers of Tamil Eelam (LTTE) in 2009.[17]"
 
@@ -191,82 +198,10 @@ def keyword_extraction(sinhala_text):
     print(sortedKeywords)
     print((filter_sorted_keywords(sortedKeywords)))
 
-    return jsonify(filter_sorted_keywords(sortedKeywords))
-    # return (filter_sorted_keywords(sortedKeywords))
+    print("result")
+    print(sortedKeywords)
 
-    # # Dummy text
-    # return jsonify([{"key": "ශක්‌තිය", "value": 19}, {"key": "ප්‍රධාන", "value": 16}, {"key": "things", "value": 18}, {
-    #     "key": "look",
-    #     "value": 16
-    # }, {"key": "two", "value": 15}, {"key": "හිමිකරදීමට", "value": 14}, {"key": "hat", "value": 14}, {
-    #                     "key": "Oh",
-    #                     "value": 13
-    #                 }, {"key": "mother", "value": 12}, {"key": "One", "value": 12}, {"key": "Now", "value": 12}, {
-    #                     "key": "Thing",
-    #                     "value": 12
-    #                 }, {"key": "නොඅනුමානය", "value": 10}, {"key": "හිමිකරදීමට", "value": 9},
-    #                 {"key": "know", "value": 9}, {
-    #                     "key": "good",
-    #                     "value": 9
-    #                 }, {"key": "saw", "value": 9}])
-
-
-# keyword_extraction(
-#     "තොරතුරු තාක්‍ෂණය දේශීයකරණය දැන්‌ සැම තැනම කතා කරන මාතෘකාවක්‌ වෙලා. පහුගිය කාලය තුළ Mozilla Firefox, ලිනක්‌ස්‌ මෙහෙයුම්‌ පද්‌ධති වගේම Microsoft Windows Vista සහ MS Office 2007 පැකේජයන්‌ පවා සිංහලට පැමිණීම මෙහිලා විශේෂ කොට දක්‌වන්‌න පුලුවන්‌. එමෙන්‌ම නුදුරු අනාගතයේදී තව තවත්‌ වටිනා මෘදුකාංග දේශීයකරණය වෙනු ඇති. ඉංග්‍රීසි මෘදුකාංග වලට සිංහල අතුරු මුහුණත්‌ (interface) සැකසීම දේශීයකරණයට ප්‍රමාණවත්‌ නොවේ, පරිශීලකයා අනුව ක්‍රියාකාරකම් හා පෙර ලැබූ පළපුරුද්ද එකතු කලයුතුය(පරිශීලන අත්දැකීම). අපගේ දැක්‌ම අනුව දේශීයකරණය දෙයාකාරයකින්‌ සිදුවිය යුතු යි. පළමුව දේශීය ඵලදායිතාව නැංවීම සඳහා අවශ්‍ය තොරතුරු තාක්‍ෂණය දැනුම ඉහල දැමිය යුතුය. ගොවිපලේ සිට කර්‌මාන්‌ත සහ කාර්‌යාලීය මට්‌ටම දක්‌වා තොරතුරු තාක්‍ෂණය භාවිතා කිරීමට ඇති හැකියාව වැඩි දියුණු කිරීම මේ යටතට වැටේ. භාෂාව මේ සඳහා විශාල බාධකයක්‌ විය හැකි බැවින්‌ දේශීයකරණයට සිදු කිරීමේදී ඒ ඒ අංශයන්‌ගෙන්‌ රටට සිදුව ඍජු සහ වක්‍ර බලපෑම්‌ අනුව ඒවාට ප්‍රමුඛතාවය ලබා දී ක්‍රියාත්‌මක කළ යුතුය. දෙවන කොටසට අයිති වනුයේ තොරතුරු තාක්‍ෂණය භාවිතා කිරීම සඳහා තාක්‍ෂණවේදීන්‌ සැකසීමේ කාර්‌යයයි. මේ සඳහා ක්‍රමවත්‌ අධ්‍යාපන ක්‍රමයක්‌ සැකසීම සහ ඒ සඳහා අවශ්‍ය පහසුකම්‌ ශිෂ්‍ය ශිෂ්‍යාවන්‌ට සහ දැනට එම ක්‍ෂේත්‍රෙය්‌ නියැලෙන අයට ලබාදීම අනිවාර්‌ය වේ. අ.පො.ස. සාමාන්‍ය පෙළ සහ උසස්‌ පෙළ සඳහා අතිරේක විෂයක්‌ ලෙස තොරතුරු තාක්‍ෂණය(ICT සහ GIT) හඳුන්‌වා දීම මෙහි ලා අගය කළ යුතු ක්‍රියාමාර්‌ගයකි. එසේම නව විෂය නිර්‌දේශය යටතේ උසස්‌ පෙළ ප්‍රධාන විෂයක්‌ ලෙස තොරතුරු තාක්‍ෂණය (IT) ඉගැන්‌වීමට ආරම්‌භ කිරීම වඩාත්‌ අගය කළ යුතුය. ඉතා වටිනා අගය කළයුතු විෂය නිර්‌දේශයකින්‌ එය සමන්‌විතය. අපගේ දැක්‌මට අනුව දැනට අරටුව ශක්‌තිමත්‌ව සැකසෙමින්‌ පවතී. අනෙකුත්‌ බාහිර කරුණු ද, එයට අවශ්‍ය කරන ශක්‌තිය ද ලබාදේ නම්‌ ත්‍රස්‌තවාදයෙන්‌ මිදුනු අපේ රටට අහිමිව ගිය ආර්‌ථික ස්‌ථානයද නැවත හිමිකරදීමට අනාගත පරපුරට හැකි වනු නොඅනුමානය.")
-
-# if test:
-#     print("step 2")
-#     text = "තොරතුරු තාක්‍ෂණය දේශීයකරණය දැන්‌ සැම තැනම කතා කරන මාතෘකාවක්‌ වෙලා. පහුගිය කාලය තුළ Mozilla Firefox, ලිනක්‌ස්‌ මෙහෙයුම්‌ පද්‌ධති වගේම Microsoft Windows Vista සහ MS Office 2007 පැකේජයන්‌ පවා සිංහලට පැමිණීම මෙහිලා විශේෂ කොට දක්‌වන්‌න පුලුවන්‌. එමෙන්‌ම නුදුරු අනාගතයේදී තව තවත්‌ වටිනා මෘදුකාංග දේශීයකරණය වෙනු ඇති. ඉංග්‍රීසි මෘදුකාංග වලට සිංහල අතුරු මුහුණත්‌ (interface) සැකසීම දේශීයකරණයට ප්‍රමාණවත්‌ නොවේ, පරිශීලකයා අනුව ක්‍රියාකාරකම් හා පෙර ලැබූ පළපුරුද්ද එකතු කලයුතුය(පරිශීලන අත්දැකීම). අපගේ දැක්‌ම අනුව දේශීයකරණය දෙයාකාරයකින්‌ සිදුවිය යුතු යි. පළමුව දේශීය ඵලදායිතාව නැංවීම සඳහා අවශ්‍ය තොරතුරු තාක්‍ෂණය දැනුම ඉහල දැමිය යුතුය. ගොවිපලේ සිට කර්‌මාන්‌ත සහ කාර්‌යාලීය මට්‌ටම දක්‌වා තොරතුරු තාක්‍ෂණය භාවිතා කිරීමට ඇති හැකියාව වැඩි දියුණු කිරීම මේ යටතට වැටේ. භාෂාව මේ සඳහා විශාල බාධකයක්‌ විය හැකි බැවින්‌ දේශීයකරණයට සිදු කිරීමේදී ඒ ඒ අංශයන්‌ගෙන්‌ රටට සිදුව ඍජු සහ වක්‍ර බලපෑම්‌ අනුව ඒවාට ප්‍රමුඛතාවය ලබා දී ක්‍රියාත්‌මක කළ යුතුය. දෙවන කොටසට අයිති වනුයේ තොරතුරු තාක්‍ෂණය භාවිතා කිරීම සඳහා තාක්‍ෂණවේදීන්‌ සැකසීමේ කාර්‌යයයි. මේ සඳහා ක්‍රමවත්‌ අධ්‍යාපන ක්‍රමයක්‌ සැකසීම සහ ඒ සඳහා අවශ්‍ය පහසුකම්‌ ශිෂ්‍ය ශිෂ්‍යාවන්‌ට සහ දැනට එම ක්‍ෂේත්‍රෙය්‌ නියැලෙන අයට ලබාදීම අනිවාර්‌ය වේ. අ.පො.ස. සාමාන්‍ය පෙළ සහ උසස්‌ පෙළ සඳහා අතිරේක විෂයක්‌ ලෙස තොරතුරු තාක්‍ෂණය(ICT සහ GIT) හඳුන්‌වා දීම මෙහි ලා අගය කළ යුතු ක්‍රියාමාර්‌ගයකි. එසේම නව විෂය නිර්‌දේශය යටතේ උසස්‌ පෙළ ප්‍රධාන විෂයක්‌ ලෙස තොරතුරු තාක්‍ෂණය (IT) ඉගැන්‌වීමට ආරම්‌භ කිරීම වඩාත්‌ අගය කළ යුතුය. ඉතා වටිනා අගය කළයුතු විෂය නිර්‌දේශයකින්‌ එය සමන්‌විතය. අපගේ දැක්‌මට අනුව දැනට අරටුව ශක්‌තිමත්‌ව සැකසෙමින්‌ පවතී. අනෙකුත්‌ බාහිර කරුණු ද, එයට අවශ්‍ය කරන ශක්‌තිය ද ලබාදේ නම්‌ ත්‍රස්‌තවාදයෙන්‌ මිදුනු අපේ රටට අහිමිව ගිය ආර්‌ථික ස්‌ථානයද නැවත හිමිකරදීමට අනාගත පරපුරට හැකි වනු නොඅනුමානය."
-#     # text = "Sri Lanka's documented history spans 3,000 years, with evidence of pre-historic human settlements dating back to at least 125,000 years.[11] It has a rich cultural heritage and the first known Buddhist writings of Sri Lanka, the Pāli Canon, date back to the Fourth Buddhist council in 29 BC.[12][13] Its geographic location and deep harbours made it of great strategic importance from the time of the ancient Silk Road through to the modern Maritime Silk Road.[14][15][16] Sri Lanka was known from the beginning of British colonial rule as Ceylon (/sɪˈlɒn, seɪ-, siː-/). A nationalist political movement arose in the country in the early-20th century to obtain political independence, which was granted in 1948; the country became a republic and adopted its current name in 1972. Sri Lanka's recent history has been marred by a thirty-year civil war, which decisively ended when the Sri Lanka Armed Forces defeated the Liberation Tigers of Tamil Eelam (LTTE) in 2009.[17]"
-#
-#     # Split text into sentences
-#     stopwords = open('StopWords_sin.txt', 'r', encoding='utf-16').read()
-#     print('------------------------ Load stop words ------------------------------')
-#     print()
-#     get_stopwords(stopwords)
-#     print(stopwords_new)
-#     print()
-#
-#     # split_chapter(full_text)
-#     phraseList = remove_stopwords(text, stopwords_new)
-#
-#     print('------------------------ After removing stop words ------------------------------')
-#     print()
-#     # splited_sents = sentence_splitter(text_no_stp, [])
-#     # print(splited_sents)
-#     print()
-#
-#
-#     print('------------------------ Split the sentences ------------------------------')
-#     print()
-#     sentenceList = split_sentences(text)
-#     print(sentenceList)
-
-stoppath = "StopWords_sin.txt"  # SMART stoplist misses some of the lower-scoring keywords in Figure 1.5, which means that the top 1/3 cuts off one of the 4.0 score words in Table 1.1
-
-# stopwordpattern = build_stop_word_regex(stoppath)
-# print(stopwordpattern)
-
-# generate candidate keywords
-# phraseList = generate_candidate_keywords(sentenceList, stopwordpattern)
-
-# calculate individual word scores
-# wordscores = calculate_word_scores(phraseList)
-#
-# # generate candidate keyword scores
-# # keywordcandidates = generate_candidate_keyword_scores(phraseList, wordscores)
-# # if debug: print(keywordcandidates)
-#
-# sortedKeywords = sorted(wordscores.items(), key=operator.itemgetter(1), reverse=True)
-# if debug: print(sortedKeywords)
-#
-# totalKeywords = len(sortedKeywords)
-# if debug: print(totalKeywords)
-#
-# # rake = Rake("StopWords_sin.txt")
-# # keywords = rake.run(text)
-#
-# print()
-# print("Top Keywords: ", sortedKeywords[0:(totalKeywords // 3)])
-# # print('Total Keywords: ', keywords)
-# print("End Time: " + strftime("%Y-%m-%d %H:%M:%S"))
+    if (is_result_formatted):
+        return (jsonify(filter_sorted_keywords(sortedKeywords)))
+    else:
+        return filter_keywords(sortedKeywords)
