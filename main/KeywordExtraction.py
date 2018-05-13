@@ -167,7 +167,7 @@ def keywords_json_formatter(unformatted_text):
     return (topList)
 
 
-def keyword_extraction(sinhala_text, is_result_formatted):
+def keyword_extraction(sinhala_text, is_result_formatted, keyword_count):
     text = sinhala_text
     # text = "Sri Lanka's documented history spans 3,000 years, with evidence of pre-historic human settlements dating back to at least 125,000 years.[11] It has a rich cultural heritage and the first known Buddhist writings of Sri Lanka, the Pāli Canon, date back to the Fourth Buddhist council in 29 BC.[12][13] Its geographic location and deep harbours made it of great strategic importance from the time of the ancient Silk Road through to the modern Maritime Silk Road.[14][15][16] Sri Lanka was known from the beginning of British colonial rule as Ceylon (/sɪˈlɒn, seɪ-, siː-/). A nationalist political movement arose in the country in the early-20th century to obtain political independence, which was granted in 1948; the country became a republic and adopted its current name in 1972. Sri Lanka's recent history has been marred by a thirty-year civil war, which decisively ended when the Sri Lanka Armed Forces defeated the Liberation Tigers of Tamil Eelam (LTTE) in 2009.[17]"
 
@@ -196,12 +196,10 @@ def keyword_extraction(sinhala_text, is_result_formatted):
     print('------------------------ Sorted keywords ------------------------------')
     print()
     print(sortedKeywords)
-    print((filter_sorted_keywords(sortedKeywords)))
+    print((filter_sorted_keywords(sortedKeywords[:keyword_count])))
 
-    print("result")
-    print(sortedKeywords)
 
     if (is_result_formatted):
-        return (jsonify(filter_sorted_keywords(sortedKeywords)))
+        return (jsonify(filter_sorted_keywords(sortedKeywords[:keyword_count])))
     else:
         return filter_keywords(sortedKeywords)

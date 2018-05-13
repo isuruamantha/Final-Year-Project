@@ -22,6 +22,11 @@ conn.autocommit(True)
 
 # Check the login credentials
 def login_user(userName, userPassword):
+    """
+    :param userName: Entered User name
+    :param userPassword: Entered userpassword without hasing
+    :return: whether the request is success or not
+    """
     return_value = ""
     cur = conn.cursor()
     password = hashlib.md5(userPassword.encode())
@@ -39,6 +44,12 @@ def login_user(userName, userPassword):
 
 # Register the user
 def user_signup(userName, userPassword, userEmail):
+    """
+    :param userName: Entered username
+    :param userPassword: Entered userpassword
+    :param userEmail: entered user email
+    :return: success state of the request
+    """
     cur = conn.cursor()
 
     password = hashlib.md5(userPassword.encode())

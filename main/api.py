@@ -5,7 +5,7 @@ from Database import login_user, user_signup
 from KeywordExtraction import keyword_extraction
 from Tokenize import wordTokenize, sentanceTokenize, removeStopWords, stemming
 from mindmap import mindmap_generate
-from summarization import textRankAlgorithm
+from summarization import textrank_algorithm
 
 app = Flask(__name__)
 CORS(app)
@@ -39,19 +39,25 @@ def function4():
 @app.route("/summarizer", methods=["POST"])
 def function5():
     data = request.json['data']
-    return textRankAlgorithm(data)
+    sentences_count = request.json['sentences_count']
+    keyword_count = request.json['keyword_count']
+    return textrank_algorithm(data, int(sentences_count))
 
 
 @app.route("/mindmap", methods=["POST"])
 def function6():
     data = request.json['data']
-    return mindmap_generate(data)
+    sentences_count = request.json['sentences_count']
+    keyword_count = request.json['keyword_count']
+    return mindmap_generate(data, int(sentences_count), int(keyword_count))
 
 
 @app.route("/keywordextraction", methods=["POST"])
 def function7():
     data = request.json['data']
-    return keyword_extraction(data, True)
+    sentences_count = request.json['sentences_count']
+    keyword_count = request.json['keyword_count']
+    return keyword_extraction(data, True, int(keyword_count))
 
 
 @app.route("/login", methods=["POST"])
