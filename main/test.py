@@ -1,4 +1,6 @@
+import hashlib
 import json
+import os
 import pprint
 
 # JSON test format for mind map
@@ -55,3 +57,10 @@ def keywords_json_formatter():
         topList.append(tmpDict1)
 
     pprint.pprint(topList)
+
+
+import hashlib
+password = 'dulika'
+h = hashlib.md5(password.encode())
+print(len(h.hexdigest()))
+print(h.hexdigest())

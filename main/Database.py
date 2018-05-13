@@ -1,3 +1,6 @@
+import hashlib
+import os
+
 from flask import Flask
 from flaskext.mysql import MySQL
 from pymysql import Error
@@ -21,10 +24,11 @@ conn.autocommit(True)
 def login_user(userName, userPassword):
     return_value = ""
     cur = conn.cursor()
+    password = hashlib.md5(userPassword.encode())
     cur.execute("""SELECT * FROM user where userName = (%s)""", (userName))
 
     for row in cur.fetchall():
-        if (row[2] == userPassword):
+        if (row[2] == password.hexdigest()):
             return_value = "success"
         else:
             return_value = "fail"
@@ -35,21 +39,15 @@ def login_user(userName, userPassword):
 
 # Register the user
 def user_signup(userName, userPassword, userEmail):
-    return_value = ""
     cur = conn.cursor()
+
+    password = hashlib.md5(userPassword.encode())
 
     query = "INSERT INTO user(userName,userPassword, userEmail) " \
             "VALUES(%s,%s,%s)"
-    args = (userName, userPassword, userEmail)
-
-    print(query, args)
+    args = (userName, password.hexdigest(), userEmail)
 
     cur.execute(query, args)
+    cur.close()
 
-    for row in cur.fetchall():
-        if (row[2] == userPassword):
-            return_value = "success"
-        else:
-            return_value = "fail"
-
-    return return_value
+    return "Success"
