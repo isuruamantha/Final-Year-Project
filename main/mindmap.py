@@ -76,7 +76,7 @@ def word_tokenize(full_text):
 
 # Main method
 def mindmap_generate(sinhala_text, sentence_count, keyword_count):
-    generated_sinahala_summary = textrank_algorithm(sinhala_text, 5);
+    generated_sinahala_summary = textrank_algorithm(sinhala_text, sentence_count);
     sents_list = sent_tokenize(generated_sinahala_summary)
 
     print(sents_list[:4])

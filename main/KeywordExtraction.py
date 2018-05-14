@@ -147,6 +147,7 @@ def filter_sorted_keywords(sorted_keywords):
 
     return keywords_json_formatter(filterd_keyword_list)
 
+
 def filter_keywords(sorted_keywords):
     filterd_keyword_list = []
     for word in sorted_keywords:
@@ -198,8 +199,7 @@ def keyword_extraction(sinhala_text, is_result_formatted, keyword_count):
     print(sortedKeywords)
     print((filter_sorted_keywords(sortedKeywords[:keyword_count])))
 
-
-    if (is_result_formatted):
-        return (jsonify(filter_sorted_keywords(sortedKeywords[:keyword_count])))
+    if is_result_formatted:
+        return jsonify(filter_sorted_keywords(sortedKeywords[:keyword_count]))
     else:
         return filter_keywords(sortedKeywords)

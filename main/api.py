@@ -1,7 +1,7 @@
 from flask import Flask, request, json
 from flask_cors import CORS
 
-from Database import login_user, user_signup
+from Database import login_user, user_signup, save_summary
 from KeywordExtraction import keyword_extraction
 from Tokenize import wordTokenize, sentanceTokenize, removeStopWords, stemming
 from mindmap import mindmap_generate
@@ -73,6 +73,13 @@ def function9():
     userPassword = request.json['userPassword']
     userEmail = request.json['userEmail']
     return user_signup(userName, userPassword, userEmail)
+
+
+@app.route("/savesummary", methods=["POST"])
+def function10():
+    userId = request.json['userId']
+    summary = request.json['summary']
+    return save_summary(userId, summary)
 
 
 if __name__ == '__main__':

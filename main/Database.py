@@ -1,6 +1,7 @@
+import datetime
 import hashlib
 import os
-
+import time
 from flask import Flask
 from flaskext.mysql import MySQL
 from pymysql import Error
@@ -61,4 +62,19 @@ def user_signup(userName, userPassword, userEmail):
     cur.execute(query, args)
     cur.close()
 
+    return "Success"
+
+
+# To save the generated summary in the database
+def save_summary(userId, summary):
+    cur = conn.cursor()
+    date = time.time()
+    timestamp = datetime.datetime.fromtimestamp(date).strftime('%Y-%m-%d %H:%M:%S')
+    print(timestamp)
+    query = "INSERT INTO summary(userId, summary, createdDate) " \
+            "VALUES(%s,%s,%s)"
+    args = (userId, summary, timestamp)
+
+    cur.execute(query, args)
+    cur.close()
     return "Success"
