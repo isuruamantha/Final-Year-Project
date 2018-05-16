@@ -2,7 +2,7 @@ import datetime
 import hashlib
 import os
 import time
-from flask import Flask
+from flask import Flask, jsonify
 from flaskext.mysql import MySQL
 from pymysql import Error
 
@@ -67,6 +67,11 @@ def user_signup(userName, userPassword, userEmail):
 
 # To save the generated summary in the database
 def save_summary(userId, summary):
+    """
+    :param userId: Id of the user
+    :param summary: Desired summary to be saved
+    :return: status of the request
+    """
     cur = conn.cursor()
     date = time.time()
     timestamp = datetime.datetime.fromtimestamp(date).strftime('%Y-%m-%d %H:%M:%S')
@@ -78,3 +83,22 @@ def save_summary(userId, summary):
     cur.execute(query, args)
     cur.close()
     return "Success"
+
+
+# Return the user history
+def history(userId):
+
+    return_value = ""
+    cur = conn.cursor()
+    cur.execute("""SELECT * FROM summary where userId = (%s)""", (userId))
+
+    topList = []
+    for row in cur.fetchall():
+        tmpDict1 = {}
+        tmpDict1["key"] = "1"
+        tmpDict1["value"] = row[2]
+        topList.append(tmpDict1)
+
+    cur.close()
+
+    return jsonify(topList)

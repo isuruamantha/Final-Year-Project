@@ -1,7 +1,7 @@
 from flask import Flask, request, json
 from flask_cors import CORS
 
-from Database import login_user, user_signup, save_summary
+from Database import login_user, user_signup, save_summary, history
 from KeywordExtraction import keyword_extraction
 from Tokenize import wordTokenize, sentanceTokenize, removeStopWords, stemming
 from mindmap import mindmap_generate
@@ -80,6 +80,12 @@ def function10():
     userId = request.json['userId']
     summary = request.json['summary']
     return save_summary(userId, summary)
+
+
+@app.route("/history", methods=["POST"])
+def function11():
+    userId = request.json['userId']
+    return history(userId)
 
 
 if __name__ == '__main__':
