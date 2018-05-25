@@ -2,7 +2,7 @@ import datetime
 import hashlib
 import os
 import time
-from flask import Flask, jsonify
+from flask import Flask, jsonify, Response, json
 from flaskext.mysql import MySQL
 from pymysql import Error
 
@@ -33,15 +33,31 @@ def login_user(userName, userPassword):
     password = hashlib.md5(userPassword.encode())
     cur.execute("""SELECT * FROM user where userName = (%s)""", (userName))
 
+    variable = []
+
     for row in cur.fetchall():
         if (row[2] == password.hexdigest()):
-            return_value = "success"
+            requestStatus = "success"
+            variable.append(requestStatus)
+            variable.append(userName)
+            variable.append(row[0])
         else:
-            return_value = "fail"
+            requestStatuss = "fail"
+            variable.append(requestStatuss)
+
     cur.close()
 
-    return return_value
+    if (len(variable) == 0):
+        requestStatuss = "fail"
+        variable.append(requestStatuss)
 
+
+    response = Response(
+        response=json.dumps(variable),
+        status=200,
+        mimetype='application/json'
+    )
+    return response
 
 # Register the user
 def user_signup(userName, userPassword, userEmail):
@@ -97,6 +113,7 @@ def history(userId):
         tmpDict1 = {}
         tmpDict1["key"] = "1"
         tmpDict1["value"] = row[2]
+        tmpDict1["created date"] = row[3].replace(tzinfo=None)
         topList.append(tmpDict1)
 
     cur.close()

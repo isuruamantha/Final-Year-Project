@@ -1,3 +1,4 @@
+import io
 from time import gmtime, strftime
 
 import networkx as nx
@@ -10,6 +11,20 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from textrank import filter_for_tags, normalize, unique_everseen, buildGraph
 
 stopwords_new = []
+
+
+# Stemming words
+def stemming_words(tokens_list):
+    stem_dictionary_path = open('assets/suffixes.txt', 'r', encoding='utf-8').read()
+    stemmed = []
+    for token in tokens_list:
+        word = token
+        for suffix in stem_dictionary_path:
+            if word.endswith(suffix):
+                word = word.replace(suffix, "")
+                break
+        stemmed.append(word)
+    return stemmed
 
 
 # Load the stopwords from the
@@ -73,11 +88,11 @@ def textrank_algorithm(document, sentence_count):
 
     print('------------------------ Load stop words ------------------------------')
     print()
-    stopwords = open('StopWords_sin.txt', 'r', encoding='utf-16').read()
+    stopwords = open('assets/StopWords_sin.txt', 'r', encoding='utf-16').read()
     get_stopwords(stopwords)
     print(stopwords_new)
 
-    print('------------------------ remove stop words ------------------------------')
+    print('------------------------ Remove stop words ------------------------------')
     print()
     text_no_stp = remove_stopwords(full_text, stopwords_new)
     print(text_no_stp)
@@ -94,11 +109,16 @@ def textrank_algorithm(document, sentence_count):
     sentences = sentence_tokenizer.tokenize(splited_sents)
     print(sentences)
 
+    print('------------------------ Stemming the words ------------------------------')
+    print()
+    print(stemming_words(splited_sents))
+
     print('------------------------ TextRank Algorithm ------------------------------')
     print()
 
     print('------------------------ Bow Matrix  ------------------------------')
     print()
+    # Sparce matrix
     bow_matrix = CountVectorizer().fit_transform(sentences)
     # print(bow_matrix)
 

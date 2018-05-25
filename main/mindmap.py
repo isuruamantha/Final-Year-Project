@@ -81,13 +81,13 @@ def mindmap_generate(sinhala_text, sentence_count, keyword_count):
 
     print(sents_list[:4])
 
-    all_extracted_keywords = keyword_extraction(sinhala_text, False, keyword_count)
+    all_extracted_keywords = keyword_extraction(sinhala_text, False, keyword_count, "keyword")
 
     print('------------------------ Extracted Keywords list ------------------------------')
     print()
     print(all_extracted_keywords)
 
-    return generate_mindmap_json(sents_list[:4], all_extracted_keywords[:30])
+    return generate_mindmap_json(sents_list[:sentence_count], all_extracted_keywords[:keyword_count])
 
 # For test purpose
 # mindmap_generate(

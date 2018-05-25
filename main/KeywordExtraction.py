@@ -48,7 +48,7 @@ def sentence_splitter(full_text, sent_phrases):
 
 def build_stop_word_regex(stop_word_file_path):
     stopwords_new = []
-    stop_word_list = open('StopWords_sin.txt', 'r', encoding='utf-16').read()
+    stop_word_list = open('assets/StopWords_sin.txt', 'r', encoding='utf-16').read()
 
     stopwords_list = nltk.word_tokenize(stop_word_list)
     for word in stopwords_list:
@@ -168,12 +168,26 @@ def keywords_json_formatter(unformatted_text):
     return (topList)
 
 
-def keyword_extraction(sinhala_text, is_result_formatted, keyword_count):
+# Stemming words
+def stemming_words(tokens_list):
+    stem_dictionary_path = open('assets/suffixes.txt', 'r', encoding='utf-8').read()
+    stemmed = []
+    for token in tokens_list:
+        word = token
+        for suffix in stem_dictionary_path:
+            if word.endswith(suffix):
+                word = word.replace(suffix, "")
+                break
+        stemmed.append(word)
+    return stemmed
+
+
+def keyword_extraction(sinhala_text, is_result_formatted, keyword_count, type):
     text = sinhala_text
     # text = "Sri Lanka's documented history spans 3,000 years, with evidence of pre-historic human settlements dating back to at least 125,000 years.[11] It has a rich cultural heritage and the first known Buddhist writings of Sri Lanka, the Pāli Canon, date back to the Fourth Buddhist council in 29 BC.[12][13] Its geographic location and deep harbours made it of great strategic importance from the time of the ancient Silk Road through to the modern Maritime Silk Road.[14][15][16] Sri Lanka was known from the beginning of British colonial rule as Ceylon (/sɪˈlɒn, seɪ-, siː-/). A nationalist political movement arose in the country in the early-20th century to obtain political independence, which was granted in 1948; the country became a republic and adopted its current name in 1972. Sri Lanka's recent history has been marred by a thirty-year civil war, which decisively ended when the Sri Lanka Armed Forces defeated the Liberation Tigers of Tamil Eelam (LTTE) in 2009.[17]"
 
     # Split text into sentences
-    stopwords = open('StopWords_sin.txt', 'r', encoding='utf-16').read()
+    stopwords = open('assets/StopWords_sin.txt', 'r', encoding='utf-16').read()
     print('------------------------ Load stop words k------------------------------')
     print()
     get_stopwords(stopwords)
@@ -187,6 +201,10 @@ def keyword_extraction(sinhala_text, is_result_formatted, keyword_count):
     print(phraseList)
     print()
 
+    print('------------------------ Stemming the words ------------------------------')
+    print()
+    print(stemming_words(phraseList))
+
     print('------------------------ Score words ------------------------------')
     print()
     wordscores = calculate_word_scores(phraseList)
@@ -199,7 +217,15 @@ def keyword_extraction(sinhala_text, is_result_formatted, keyword_count):
     print(sortedKeywords)
     print((filter_sorted_keywords(sortedKeywords[:keyword_count])))
 
-    if is_result_formatted:
-        return jsonify(filter_sorted_keywords(sortedKeywords[:keyword_count]))
+    if(type == "keyword"):
+        if is_result_formatted:
+            return jsonify(filter_sorted_keywords(sortedKeywords[:keyword_count]))
+        else:
+            return filter_keywords(sortedKeywords)
     else:
-        return filter_keywords(sortedKeywords)
+        if is_result_formatted:
+            return jsonify(sortedKeywords[:keyword_count])
+        else:
+            return filter_keywords(sortedKeywords)
+
+

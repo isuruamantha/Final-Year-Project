@@ -57,7 +57,7 @@ def function7():
     data = request.json['data']
     sentences_count = request.json['sentences_count']
     keyword_count = request.json['keyword_count']
-    return keyword_extraction(data, True, int(keyword_count))
+    return keyword_extraction(data, True, int(keyword_count), "keyword")
 
 
 @app.route("/login", methods=["POST"])
@@ -86,6 +86,14 @@ def function10():
 def function11():
     userId = request.json['userId']
     return history(userId)
+
+
+@app.route("/keywordsforbarchart", methods=["POST"])
+def function12():
+    data = request.json['data']
+    sentences_count = request.json['sentences_count']
+    keyword_count = request.json['keyword_count']
+    return keyword_extraction(data, True, int(keyword_count), "chart")
 
 
 if __name__ == '__main__':
