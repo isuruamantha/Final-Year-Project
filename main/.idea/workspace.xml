@@ -14,8 +14,8 @@
       <file leaf-file-name="api.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
-              <caret line="94" selection-start-line="94" selection-end-line="94" />
+            <state relative-caret-position="74">
+              <caret line="79" column="35" lean-forward="true" selection-start-line="79" selection-start-column="35" selection-end-line="79" selection-end-column="35" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -23,32 +23,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="KeywordExtraction.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/KeywordExtraction.py">
+      <file leaf-file-name="TextRank.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TextRank.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="228" column="34" selection-start-line="228" selection-start-column="19" selection-end-line="228" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mindmap.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mindmap.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="83" column="92" selection-start-line="83" selection-start-column="92" selection-end-line="83" selection-end-column="92" />
+            <state>
               <folding>
-                <element signature="e#0#13#0" expanded="true" />
+                <element signature="e#0#25#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="summarization.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/summarization.py">
+      <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="79" column="4" selection-start-line="79" selection-start-column="4" selection-end-line="79" selection-end-column="4" />
+            <state relative-caret-position="975">
+              <caret line="69" selection-start-line="69" selection-end-line="80" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="KeywordExtraction.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/KeywordExtraction.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="164">
+              <caret line="126" column="30" selection-start-line="126" selection-start-column="30" selection-end-line="126" selection-end-column="30" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -84,6 +83,8 @@
       <find>න</find>
       <find>suffixes</find>
       <find>keywor</find>
+      <find>keywordextraction</find>
+      <find>keywordsforbarchart</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -92,18 +93,18 @@
         <option value="$PROJECT_DIR$/Database.py" />
         <option value="$PROJECT_DIR$/rake.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/summarization.py" />
         <option value="$PROJECT_DIR$/mindmap.py" />
         <option value="$PROJECT_DIR$/api.py" />
+        <option value="$PROJECT_DIR$/summarization.py" />
         <option value="$PROJECT_DIR$/KeywordExtraction.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="67" />
-    <option name="y" value="25" />
-    <option name="width" value="1299" />
-    <option name="height" value="743" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="196" />
+    <option name="y" value="29" />
+    <option name="width" value="1289" />
+    <option name="height" value="555" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -285,26 +286,26 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1299" height="743" extended-state="6" />
+    <frame x="67" y="25" width="1299" height="743" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21551724" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17789969" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.5441176" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.60620916" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.501634" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.64542484" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.5522876" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.5588235" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.4509804" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4509804" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.60620916" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -314,14 +315,8 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/api.py</url>
-          <line>95</line>
-          <option name="timeStamp" value="66" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/api.py</url>
-          <line>94</line>
-          <option name="timeStamp" value="67" />
+          <url>file://$PROJECT_DIR$/mindmap.py</url>
+          <option name="timeStamp" value="68" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -331,7 +326,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="68" />
+      <option name="time" value="69" />
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
@@ -384,6 +379,23 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/mindmap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1245">
+          <caret line="83" column="92" selection-start-line="83" selection-start-column="92" selection-end-line="83" selection-end-column="92" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/summarization.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1185">
+          <caret line="79" column="4" selection-start-line="79" selection-start-column="4" selection-end-line="79" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/summarization.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2010">
@@ -405,9 +417,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="855">
           <caret line="57" column="5" lean-forward="true" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -432,9 +441,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
           <caret line="38" selection-start-line="38" selection-end-line="38" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -459,9 +465,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1215">
           <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -486,9 +489,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1440">
           <caret line="96" column="21" lean-forward="true" selection-start-line="96" selection-start-column="21" selection-end-line="96" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -587,13 +587,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rake.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2145">
-          <caret line="143" lean-forward="true" selection-start-line="143" selection-end-line="143" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/rake.py" />
     <entry file="file://$PROJECT_DIR$/api.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -611,13 +605,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rake.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2310">
-          <caret line="156" lean-forward="true" selection-start-line="156" selection-end-line="156" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/rake.py" />
     <entry file="file://$PROJECT_DIR$/api.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -667,13 +655,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../../Final-Year-Project/venv/lib/python3.6/site-packages/flask/globals.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="58" selection-start-line="58" selection-end-line="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../../Final-Year-Project/venv/lib/python3.6/site-packages/flaskext/mysql.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -692,42 +673,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="840">
           <caret line="62" column="51" selection-start-line="62" selection-start-column="51" selection-end-line="62" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/SmartStoplist.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="572" lean-forward="true" selection-start-line="572" selection-end-line="572" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rake.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="162" column="35" lean-forward="true" selection-start-line="162" selection-start-column="35" selection-end-line="162" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/StopWords_sin.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/SmartStoplist.txt" />
+    <entry file="file://$PROJECT_DIR$/rake.py" />
     <entry file="file://$PROJECT_DIR$/Tokenize.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="326">
           <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TextRank.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -745,47 +699,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="69" selection-start-line="69" selection-end-line="80" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../Final-Year-Project/venv/lib/python3.6/site-packages/sklearn/feature_extraction/text.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/summarization.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="79" column="4" selection-start-line="79" selection-start-column="4" selection-end-line="79" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/KeywordExtraction.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="228" column="34" selection-start-line="228" selection-start-column="19" selection-end-line="228" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mindmap.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="83" column="92" selection-start-line="83" selection-start-column="92" selection-end-line="83" selection-end-column="92" />
+        <state relative-caret-position="240">
+          <caret line="16" column="22" lean-forward="true" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/summarization.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="138" column="32" selection-start-line="138" selection-start-column="32" selection-end-line="138" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Final-Year-Project/venv/lib/python3.6/site-packages/flask/globals.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="58" selection-start-line="58" selection-end-line="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TextRank.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="975">
+          <caret line="69" selection-start-line="69" selection-end-line="80" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/KeywordExtraction.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="126" column="30" selection-start-line="126" selection-start-column="30" selection-end-line="126" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="94" selection-start-line="94" selection-end-line="94" />
+        <state relative-caret-position="74">
+          <caret line="79" column="35" lean-forward="true" selection-start-line="79" selection-start-column="35" selection-end-line="79" selection-end-column="35" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>

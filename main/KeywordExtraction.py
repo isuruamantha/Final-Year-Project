@@ -161,8 +161,8 @@ def keywords_json_formatter(unformatted_text):
 
     for index, tex in enumerate(unformatted_text):
         tmpDict1 = {}
-        tmpDict1["key"] = tex
-        tmpDict1["value"] = index
+        tmpDict1["text"] = tex
+        tmpDict1["size"] = 40 - index*2
         topList.append(tmpDict1)
 
     return (topList)
@@ -217,7 +217,7 @@ def keyword_extraction(sinhala_text, is_result_formatted, keyword_count, type):
     print(sortedKeywords)
     print((filter_sorted_keywords(sortedKeywords[:keyword_count])))
 
-    if(type == "keyword"):
+    if (type == "keyword"):
         if is_result_formatted:
             return jsonify(filter_sorted_keywords(sortedKeywords[:keyword_count]))
         else:
@@ -227,5 +227,3 @@ def keyword_extraction(sinhala_text, is_result_formatted, keyword_count, type):
             return jsonify(sortedKeywords[:keyword_count])
         else:
             return filter_keywords(sortedKeywords)
-
-

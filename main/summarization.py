@@ -120,17 +120,20 @@ def textrank_algorithm(document, sentence_count):
     print()
     # Sparce matrix
     bow_matrix = CountVectorizer().fit_transform(sentences)
-    # print(bow_matrix)
+    print(bow_matrix)
 
     print('------------------------ normalized Matrix  ------------------------------')
     print()
     normalized = TfidfTransformer().fit_transform(bow_matrix)
     # print(normalized)
 
+    print('------------------------ Similarity Matrix  ------------------------------')
+    print()
     similarity_graph = normalized * normalized.T
+    # print(similarity_graph)
 
     nx_graph = nx.from_scipy_sparse_matrix(similarity_graph)
-    print(nx_graph)
+    # print(nx_graph)
     scores = nx.pagerank(nx_graph)
 
     sorted_sentences = sorted(scores, key=scores.get,
