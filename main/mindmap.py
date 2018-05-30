@@ -11,9 +11,7 @@ from summarization import textrank_algorithm, sentence_splitter
 # Create mind map according to the layout
 def generate_mindmap_json(sorted_text, keyword_list):
     json_list = {}
-
     json_list["class"] = "go.TreeModel"
-
     text = sorted_text
 
     directions = ['right', 'left']

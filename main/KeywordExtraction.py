@@ -11,7 +11,12 @@ test = True
 stopwords_new = []
 
 
+# To check whether the number
 def is_number(s):
+    """
+    :param s: Number input
+    :return: Result
+    """
     try:
         float(s) if '.' in s else int(s)
         return True
@@ -19,6 +24,7 @@ def is_number(s):
         return False
 
 
+# To seperate the words
 def separate_words(text, min_word_return_size):
     """
     Utility function to return a list of all words that are have a length greater than a specified number of characters.
@@ -35,47 +41,12 @@ def separate_words(text, min_word_return_size):
     return words
 
 
-def sentence_splitter(full_text, sent_phrases):
-    phrase_wo_stp = ''
-    if full_text:
-        sents_list = nltk.sent_tokenize(full_text)
-        for sentence in sents_list:
-            phrase_wo_stp = phrase_wo_stp + sentence + '\n'
-        return phrase_wo_stp
-    elif sent_phrases:
-        return sent_phrases.split('\n')
-
-
-def build_stop_word_regex(stop_word_file_path):
-    stopwords_new = []
-    stop_word_list = open('assets/StopWords_sin.txt', 'r', encoding='utf-16').read()
-
-    stopwords_list = nltk.word_tokenize(stop_word_list)
-    for word in stopwords_list:
-        if not word.isdigit():
-            stopwords_new.append(word)
-
-    stop_word_regex_list = []
-    for word in stopwords_new:
-        word_regex = r'\b' + word + r'(?![\w-])'  # added look ahead for hyphen
-        stop_word_regex_list.append(word_regex)
-    stop_word_pattern = re.compile('|'.join(stop_word_regex_list), re.IGNORECASE)
-    return stop_word_pattern
-
-
-def generate_candidate_keywords(sentence_list, stopword_pattern):
-    phrase_list = []
-    for s in sentence_list:
-        tmp = re.sub(stopword_pattern, '|', s.strip())
-        phrases = tmp.split("|")
-        for phrase in phrases:
-            phrase = phrase.strip().lower()
-            if phrase != "":
-                phrase_list.append(phrase)
-    return phrase_list
-
-
+# To split the chapters
 def split_chapter(full_text):
+    """
+    :param full_text: Full text
+    :return: Splitted chapters
+    """
     splited_words = []
     # splited_text = nltk.word_tokenize(full_text)
     splited_text = re.split('\n\n| \n|\n|[ ]|,', full_text)
@@ -85,7 +56,13 @@ def split_chapter(full_text):
     return splited_words
 
 
+# To remove the stop words
 def remove_stopwords(split_sents, stop_word_list_new):
+    """
+    :param split_sents: Raw text
+    :param stop_word_list_new: stop word list
+    :return: text without stopwords
+    """
     summed_phrase = []
     words = split_chapter(split_sents)
     for word in words:
@@ -96,13 +73,22 @@ def remove_stopwords(split_sents, stop_word_list_new):
 
 # Load the stopwords from the
 def get_stopwords(stopwords):
+    """
+    :param stopwords: List of stop words
+    :return: sorted stopwords list
+    """
     stopwords_list = nltk.word_tokenize(stopwords)
     for word in stopwords_list:
         if not word.isdigit():
             stopwords_new.append(word)
 
 
+# Calculate the score for words
 def calculate_word_scores(phraseList):
+    """
+    :param phraseList: List of the phrases
+    :return: calculated score
+    """
     word_frequency = {}
     word_degree = {}
     for phrase in phraseList:
@@ -128,7 +114,13 @@ def calculate_word_scores(phraseList):
     return word_score
 
 
+# To generate score for each words
 def generate_candidate_keyword_scores(phrase_list, word_score):
+    """
+    :param phrase_list: list of the phrases
+    :param word_score: Score for each words
+    :return: Generated score
+    """
     keyword_candidates = {}
     for phrase in phrase_list:
         keyword_candidates.setdefault(phrase, 0)
@@ -140,7 +132,12 @@ def generate_candidate_keyword_scores(phrase_list, word_score):
     return keyword_candidates
 
 
+# To sort the words
 def filter_sorted_keywords(sorted_keywords):
+    """
+    :param sorted_keywords: Input the sorted keywords
+    :return: Filtered and formatted keywords
+    """
     filterd_keyword_list = []
     for word in sorted_keywords:
         filterd_keyword_list.append(word[0])
@@ -148,7 +145,12 @@ def filter_sorted_keywords(sorted_keywords):
     return keywords_json_formatter(filterd_keyword_list)
 
 
+# To filter the words
 def filter_keywords(sorted_keywords):
+    """
+    :param sorted_keywords: Raw sorted keywords
+    :return: Filtered keywords list
+    """
     filterd_keyword_list = []
     for word in sorted_keywords:
         filterd_keyword_list.append(word[0])
@@ -156,13 +158,18 @@ def filter_keywords(sorted_keywords):
     return filterd_keyword_list
 
 
+# To format the output
 def keywords_json_formatter(unformatted_text):
+    """
+    :param unformatted_text:
+    :return: Formatted text
+    """
     topList = []
 
     for index, tex in enumerate(unformatted_text):
         tmpDict1 = {}
         tmpDict1["text"] = tex
-        tmpDict1["size"] = 40 - index*2
+        tmpDict1["size"] = 40 - index * 2
         topList.append(tmpDict1)
 
     return (topList)
@@ -170,6 +177,10 @@ def keywords_json_formatter(unformatted_text):
 
 # Stemming words
 def stemming_words(tokens_list):
+    """
+    :param tokens_list:
+    :return: Stemmed words
+    """
     stem_dictionary_path = open('assets/suffixes.txt', 'r', encoding='utf-8').read()
     stemmed = []
     for token in tokens_list:
@@ -182,7 +193,15 @@ def stemming_words(tokens_list):
     return stemmed
 
 
+# Main method
 def keyword_extraction(sinhala_text, is_result_formatted, keyword_count, type):
+    """
+    :param sinhala_text: Input text
+    :param is_result_formatted: Result should be formatted or not?
+    :param keyword_count: count of the keywords
+    :param type: category
+    :return:
+    """
     text = sinhala_text
     # text = "Sri Lanka's documented history spans 3,000 years, with evidence of pre-historic human settlements dating back to at least 125,000 years.[11] It has a rich cultural heritage and the first known Buddhist writings of Sri Lanka, the Pāli Canon, date back to the Fourth Buddhist council in 29 BC.[12][13] Its geographic location and deep harbours made it of great strategic importance from the time of the ancient Silk Road through to the modern Maritime Silk Road.[14][15][16] Sri Lanka was known from the beginning of British colonial rule as Ceylon (/sɪˈlɒn, seɪ-, siː-/). A nationalist political movement arose in the country in the early-20th century to obtain political independence, which was granted in 1948; the country became a republic and adopted its current name in 1972. Sri Lanka's recent history has been marred by a thirty-year civil war, which decisively ended when the Sri Lanka Armed Forces defeated the Liberation Tigers of Tamil Eelam (LTTE) in 2009.[17]"
 

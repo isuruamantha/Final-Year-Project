@@ -51,13 +51,13 @@ def login_user(userName, userPassword):
         requestStatuss = "fail"
         variable.append(requestStatuss)
 
-
     response = Response(
         response=json.dumps(variable),
         status=200,
         mimetype='application/json'
     )
     return response
+
 
 # Register the user
 def user_signup(userName, userPassword, userEmail):
@@ -103,7 +103,10 @@ def save_summary(userId, summary):
 
 # Return the user history
 def history(userId):
-
+    """
+    :param userId:
+    :return: Return the history
+    """
     return_value = ""
     cur = conn.cursor()
     cur.execute("""SELECT * FROM summary where userId = (%s)""", (userId))
