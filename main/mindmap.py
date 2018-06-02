@@ -1,15 +1,19 @@
-import pprint
 import random
 
-from flask import json, jsonify, app
+from flask import jsonify
 from nltk import sent_tokenize, re
 
 from KeywordExtraction import keyword_extraction
-from summarization import textrank_algorithm, sentence_splitter
+from summarization import textrank_algorithm
 
 
 # Create mind map according to the layout
 def generate_mindmap_json(sorted_text, keyword_list):
+    """
+    :param sorted_text: Sorted text
+    :param keyword_list: List of keywords
+    :return: Json output
+    """
     json_list = {}
     json_list["class"] = "go.TreeModel"
     text = sorted_text
@@ -52,8 +56,12 @@ def generate_mindmap_json(sorted_text, keyword_list):
     return jsonify(json_list)
 
 
-# To filterd out the sorted keywords
+# To filtered out the sorted keywords
 def filter_sorted_keywords(sorted_keywords):
+    """
+    :param sorted_keywords: Sorted keywords list
+    :return: Filtered keywords list
+    """
     filterd_keyword_list = []
     for word in sorted_keywords:
         filterd_keyword_list.append(word[0])
@@ -63,6 +71,10 @@ def filter_sorted_keywords(sorted_keywords):
 
 # To tokenize thw words
 def word_tokenize(full_text):
+    """
+    :param full_text: Raw text
+    :return: Tokenized text
+    """
     splited_words = []
     # splited_text = nltk.word_tokenize(full_text)
     splited_text = re.split('\n\n| \n|\n|[ ]|,', full_text)
@@ -74,6 +86,12 @@ def word_tokenize(full_text):
 
 # Main method
 def mindmap_generate(sinhala_text, sentence_count, keyword_count):
+    """
+    :param sinhala_text: Raw sinhala text
+    :param sentence_count: Count of the sentences to be in the mindmap
+    :param keyword_count: Count of the keywords to be in the mind map
+    :return:
+    """
     generated_sinahala_summary = textrank_algorithm(sinhala_text, sentence_count);
     sents_list = sent_tokenize(generated_sinahala_summary)
 

@@ -1,20 +1,20 @@
-import io
-from time import gmtime, strftime
-
-import networkx as nx
-import nltk, re
 from collections import Counter
 
-from flask import jsonify
-from nltk import word_tokenize, sent_tokenize
+import networkx as nx
+import nltk
+import re
+from nltk import sent_tokenize
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
-from textrank import filter_for_tags, normalize, unique_everseen, buildGraph
 
 stopwords_new = []
 
 
 # Stemming words
 def stemming_words(tokens_list):
+    """
+    :param tokens_list: List of tokens
+    :return: Stemmed words list
+    """
     stem_dictionary_path = open('assets/suffixes.txt', 'r', encoding='utf-8').read()
     stemmed = []
     for token in tokens_list:
@@ -29,6 +29,10 @@ def stemming_words(tokens_list):
 
 # Load the stopwords from the
 def get_stopwords(stopwords):
+    """
+    :param stopwords: Stop word file
+    :return: Sorted stop word list
+    """
     stopwords_list = nltk.word_tokenize(stopwords)
     for word in stopwords_list:
         if not word.isdigit():
@@ -37,6 +41,10 @@ def get_stopwords(stopwords):
 
 # To count the words
 def count_words(split_words):
+    """
+    :param split_words: Word list
+    :return: count of the words
+    """
     count = Counter()
     for word in split_words:
         count[word] += 1
@@ -45,6 +53,11 @@ def count_words(split_words):
 
 # To remove the stop words from the given list
 def remove_stopwords(split_sents, stop_word_list_new):
+    """
+    :param split_sents: Splitted sentences
+    :param stop_word_list_new: Stop word list
+    :return: After removing the stopwords
+    """
     summed_phrase = ''
     words = split_chapter(split_sents)
     for word in words:
@@ -55,6 +68,11 @@ def remove_stopwords(split_sents, stop_word_list_new):
 
 # To split the sentences
 def sentence_splitter(full_text, sent_phrases):
+    """
+    :param full_text: Full raw sinhala text
+    :param sent_phrases: Phrases of the sentences
+    :return: Splitted sentences
+    """
     phrase_wo_stp = ''
     if full_text:
         sents_list = sent_tokenize(full_text)
@@ -67,6 +85,10 @@ def sentence_splitter(full_text, sent_phrases):
 
 # To split the chapters
 def split_chapter(full_text):
+    """
+    :param full_text: Raw sinhala text
+    :return: Splitted chapters
+    """
     splited_words = []
     # splited_text = nltk.word_tokenize(full_text)
     splited_text = re.split('\n\n| \n|\n|[ ]|,', full_text)
@@ -78,6 +100,11 @@ def split_chapter(full_text):
 
 # Main algorithm
 def textrank_algorithm(document, sentence_count):
+    """
+    :param document: Raw sinhala text
+    :param sentence_count: Count of the sentences
+    :return: Generated summary
+    """
     full_text = document
 
     print('------------------------ Sentence Tokenizer ------------------------------')
